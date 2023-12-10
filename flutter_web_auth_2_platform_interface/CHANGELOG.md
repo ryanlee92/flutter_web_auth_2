@@ -1,3 +1,7 @@
+## 3.1.0
+
+- 🌹 Fix lint for Flutter 3.16.x
+
 ## 3.0.0
 
 - 💥 Release next major version, yay!

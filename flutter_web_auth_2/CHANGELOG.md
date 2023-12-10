@@ -1,3 +1,8 @@
+## 3.1.0
+
+- 🎉 Implement `iframe` authentication approach (Thanks to [@rundfunk47](https://github.com/rundfunk47) in [#88](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/88))
+- 🌹 Fix lint for Flutter 3.16.x
+
 ## 3.0.4
 
 - 🐛 Fix null-safe options
