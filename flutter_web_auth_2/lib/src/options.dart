@@ -85,26 +85,26 @@ class FlutterWebAuth2Options {
   final String landingPageHtml;
 
   /// **Only has an effect on Web!**
-  /// When set to true, the authentication URL will be loaded in a hidden iframe
-  /// instead of opening a new window or tab. This is primarily used for silent
-  /// authentication processes where a full-page redirect is not desirable.
-  /// It allows for a seamless user experience by performing the authentication
-  /// in the background. This approach is useful for token refreshes or for
-  /// maintaining user sessions without explicit user interaction.
+  /// When set to `true`, the authentication URL will be loaded in a hidden
+  /// `iframe` instead of opening a new window or tab. This is primarily used
+  /// for silent authentication processes where a full-page redirect is not
+  /// desirable. It allows for a seamless user experience by performing the
+  /// authentication in the background. This approach is useful for token
+  /// refreshes or for maintaining user sessions without explicit user
+  /// interaction. IT IS YOUR RESPONSIBILITY TO MAKE SURE THAT THE URL IS SANE
+  /// AND DOES NOT CAUSE ANY HARM. IFRAMES CAN BE EXPLOITED IN MANY WAYS BY
+  /// MALICIOUS ATTACKERS!
   final bool silentAuth;
 
   const FlutterWebAuth2Options({
-    bool? preferEphemeral,
+    this.preferEphemeral = false,
     this.debugOrigin,
-    int? intentFlags,
+    this.intentFlags = defaultIntentFlags,
     this.windowName,
-    int? timeout,
-    String? landingPageHtml,
+    this.timeout = 5 * 60,
+    this.landingPageHtml = _defaultLandingPage,
     this.silentAuth = false,
-  })  : preferEphemeral = preferEphemeral ?? false,
-        intentFlags = intentFlags ?? defaultIntentFlags,
-        timeout = timeout ?? 5 * 60,
-        landingPageHtml = landingPageHtml ?? _defaultLandingPage;
+  });
 
   FlutterWebAuth2Options.fromJson(Map<String, dynamic> json)
       : this(

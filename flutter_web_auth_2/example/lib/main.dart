@@ -118,9 +118,7 @@ class MyAppState extends State<MyApp> {
     // Normally, you don't need to specify a custom URL on web. However, in
     // this example, we just go the auth page directly since we cannot start
     // the socket server...
-    // YOU NEED TO PROPERLY CHANGE THIS PORT IF YOU WANT TO RUN THIS EXAMPLE!
-    const url =
-        kIsWeb ? 'http://localhost:53563/auth.html' : 'http://127.0.0.1:43823/';
+    final url = kIsWeb ? '${Uri.base}auth.html' : 'http://127.0.0.1:43823/';
 
     // Windows needs some callback URL on localhost
     final callbackUrlScheme =

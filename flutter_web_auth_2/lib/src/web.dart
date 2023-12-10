@@ -47,7 +47,9 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
     final parsedOptions = FlutterWebAuth2Options.fromJson(options);
 
     if (parsedOptions.silentAuth) {
+      // Not in our hands - developers need to check sanity of URL themselves...
       final authIframe = IFrameElement()
+        // ignore: unsafe_html
         ..src = url
         ..style.display = 'none';
 
@@ -60,10 +62,10 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
       messageSubscription = window.onMessage.listen((messageEvent) {
         if (messageEvent.origin ==
             (parsedOptions.debugOrigin ?? Uri.base.origin)) {
-          final flutterWebAuthMessage = messageEvent.data['flutter-web-auth-2'];
-          if (flutterWebAuthMessage is String) {
+          final authMessage = messageEvent.data['flutter-web-auth-2'];
+          if (authMessage is String) {
             authIframe.remove();
-            completer.complete(flutterWebAuthMessage);
+            completer.complete(authMessage);
             responseTimeoutTimer?.cancel();
             messageSubscription?.cancel();
           }
@@ -84,12 +86,12 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
       });
 
       return completer.future;
-    } else {
-      await launchUrl(
-        Uri.parse(url),
-        webOnlyWindowName: parsedOptions.windowName,
-      );
     }
+
+    await launchUrl(
+      Uri.parse(url),
+      webOnlyWindowName: parsedOptions.windowName,
+    );
 
     // Remove the old record if it exists
     const storageKey = 'flutter-web-auth-2';
