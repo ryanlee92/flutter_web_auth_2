@@ -97,14 +97,18 @@ class FlutterWebAuth2Options {
   final bool silentAuth;
 
   const FlutterWebAuth2Options({
-    this.preferEphemeral = false,
+    bool? preferEphemeral,
     this.debugOrigin,
-    this.intentFlags = defaultIntentFlags,
+    int? intentFlags,
     this.windowName,
-    this.timeout = 5 * 60,
-    this.landingPageHtml = _defaultLandingPage,
-    this.silentAuth = false,
-  });
+    int? timeout,
+    String? landingPageHtml,
+    bool? silentAuth,
+  })  : preferEphemeral = preferEphemeral ?? false,
+        intentFlags = intentFlags ?? defaultIntentFlags,
+        timeout = timeout ?? 5 * 60,
+        landingPageHtml = landingPageHtml ?? _defaultLandingPage,
+        silentAuth = silentAuth ?? false;
 
   FlutterWebAuth2Options.fromJson(Map<String, dynamic> json)
       : this(
