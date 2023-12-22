@@ -1,3 +1,7 @@
+## 3.1.1
+
+- 🐛 Fix null-safe options (again)
+
 ## 3.1.0
 
 - 🎉 Implement `iframe` authentication approach (Thanks to [@rundfunk47](https://github.com/rundfunk47) in [#88](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/88))
