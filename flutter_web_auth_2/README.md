@@ -2,6 +2,8 @@
 
 **This project is a continuation of [flutter_web_auth](https://github.com/LinusU/flutter_web_auth) by Linus Unnebäck with many new features and bug fixes.**
 
+[![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
+
 A Flutter plugin for authenticating a user with a web service, even if the web service is run by a third party. Most commonly used with OAuth2, but can be used with any web flow that can redirect to a custom scheme.
 
 In the background, this plugin uses [`ASWebAuthenticationSession`](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) on iOS 12+ and macOS 10.15+, [`SFAuthenticationSession`](https://developer.apple.com/documentation/safariservices/sfauthenticationsession) on iOS 11, [Chrome Custom Tabs](https://developer.chrome.com/docs/android/custom-tabs/) on Android and opens a new window on Web. You can build it with iOS 8+, but it is currently only supported by iOS 11 or higher.
