@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FlutterWebAuth2WindowsPlugin extends FlutterWebAuth2Platform {
   bool authenticated = false;
@@ -28,13 +30,16 @@ class FlutterWebAuth2WindowsPlugin extends FlutterWebAuth2Platform {
     webview?.close();
 
     final c = Completer<String>();
-
+    debugPrint(
+      '''Launching webview with url: $url, callbackUrlScheme: $callbackUrlScheme, tmpDir: ${(await getTemporaryDirectory()).path}''',
+    );
     webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
         windowHeight: 720,
         windowWidth: 1280,
         title: 'Authenticate',
         titleBarTopPadding: Platform.isMacOS ? 20 : 0,
+        userDataFolderWindows: (await getTemporaryDirectory()).path,
       ),
     );
     webview!.addOnUrlRequestCallback((url) {
