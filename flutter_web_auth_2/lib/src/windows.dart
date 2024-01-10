@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
 
 class FlutterWebAuth2WindowsPlugin extends FlutterWebAuth2Platform {
@@ -44,6 +45,14 @@ class FlutterWebAuth2WindowsPlugin extends FlutterWebAuth2Platform {
         webview?.close();
       }
     });
+    unawaited(webview!.onClose.whenComplete(() => {
+          if (!authenticated)
+            {
+              c.completeError(
+                PlatformException(code: 'CANCELED', message: 'User canceled'),
+              )
+            },
+        }));
     webview!.launch(url);
     return c.future;
   }
