@@ -10,6 +10,7 @@ export 'src/options.dart';
 export 'src/unsupported.dart'
     if (dart.library.io) 'src/server.dart'
     if (dart.library.html) 'src/web.dart';
+export 'src/windows.dart';
 
 class _OnAppLifecycleResumeObserver extends WidgetsBindingObserver {
   final Function onResumed;
