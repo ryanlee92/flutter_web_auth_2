@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 
-const html =
-    '''
+const html = '''
 <!DOCTYPE html>
 <html>
 <head>
