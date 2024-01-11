@@ -116,7 +116,7 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> authenticate(BuildContext context) async {
+  Future<void> authenticate() async {
     setState(() {
       _status = '';
     });
@@ -162,7 +162,7 @@ class MyAppState extends State<MyApp> {
                 const SizedBox(height: 80),
                 ElevatedButton(
                   onPressed: () async {
-                    await authenticate(context);
+                    await authenticate();
                   },
                   child: const Text('Authenticate'),
                 ),
