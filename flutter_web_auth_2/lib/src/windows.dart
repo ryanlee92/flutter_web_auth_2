@@ -45,19 +45,28 @@ class FlutterWebAuth2WindowsPlugin extends FlutterWebAuth2Platform {
       final uri = Uri.parse(url);
       if (uri.scheme == callbackUrlScheme) {
         authenticated = true;
-        c.complete(url);
         webview?.close();
+        /**
+         * Not setting the webview to null will cause a crash if the 
+         * application tries to open another webview
+         */
+        webview = null;
+        c.complete(url);
       }
     });
     unawaited(
       webview!.onClose.whenComplete(
-        () => {
-          if (!authenticated)
-            {
-              c.completeError(
-                PlatformException(code: 'CANCELED', message: 'User canceled'),
-              ),
-            },
+        () {
+          /**
+           * Not setting the webview to null will cause a crash if the 
+           * application tries to open another webview
+           */
+          webview = null;
+          if (!authenticated) {
+            c.completeError(
+              PlatformException(code: 'CANCELED', message: 'User canceled'),
+            );
+          }
         },
       ),
     );
