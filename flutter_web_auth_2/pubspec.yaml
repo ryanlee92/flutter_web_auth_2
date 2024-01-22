@@ -24,11 +24,13 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  desktop_webview_window: ^0.2.3
   flutter:
     sdk: flutter
   flutter_web_auth_2_platform_interface: ^3.0.0
   flutter_web_plugins:
     sdk: flutter
+  path_provider: ^2.1.2
   url_launcher: ^6.1.6
   window_to_front: ^0.0.3
 
@@ -54,5 +56,5 @@ flutter:
         pluginClass: FlutterWebAuth2WebPlugin
         fileName: src/web.dart
       windows:
-        dartPluginClass: FlutterWebAuth2ServerPlugin
-        fileName: src/server.dart
+        dartPluginClass: FlutterWebAuth2WindowsPlugin
+        fileName: src/windows.dart

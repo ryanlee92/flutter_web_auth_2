@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' show HttpServer, Platform;
 
+import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,7 +64,12 @@ const html = '''
 </html>
 ''';
 
-void main() => runApp(const MyApp());
+void main(List<String> args) {
+  if (runWebViewTitleBarWidget(args)) {
+    return;
+  }
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -95,7 +101,7 @@ class MyAppState extends State<MyApp> {
 
       // Windows needs some callback URL on localhost
       req.response.write(
-        (Platform.isWindows || Platform.isLinux)
+        (Platform.isLinux)
             ? html.replaceFirst(
                 'CALLBACK_URL_HERE',
                 'http://localhost:43824/success?code=1337',
@@ -122,9 +128,7 @@ class MyAppState extends State<MyApp> {
 
     // Windows needs some callback URL on localhost
     final callbackUrlScheme =
-        !kIsWeb && (Platform.isWindows || Platform.isLinux)
-            ? 'http://localhost:43824'
-            : 'foobar';
+        !kIsWeb && (Platform.isLinux) ? 'http://localhost:43824' : 'foobar';
 
     try {
       final result = await FlutterWebAuth2.authenticate(
@@ -157,7 +161,9 @@ class MyAppState extends State<MyApp> {
                 Text('Status: $_status\n'),
                 const SizedBox(height: 80),
                 ElevatedButton(
-                  onPressed: authenticate,
+                  onPressed: () async {
+                    await authenticate();
+                  },
                   child: const Text('Authenticate'),
                 ),
               ],
