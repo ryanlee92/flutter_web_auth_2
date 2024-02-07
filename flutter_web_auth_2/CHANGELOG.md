@@ -1,3 +1,7 @@
+## 4.0.0-alpha.0
+
+- 🎉 Add Webview approach for Windows and Linux (Thanks to [@Mino5531](https://github.com/Mino5531) in [#92](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/92))
+
 ## 3.1.1
 
 - 🐛 Fix null-safe options (again)

@@ -1,3 +1,7 @@
+## 4.0.0-alpha.0
+
+- 🌹 Update to new major version in conjunction with main package
+
 ## 3.1.0
 
 - 🌹 Fix lint for Flutter 3.16.x

@@ -24,7 +24,7 @@ Add the following snippet to your `pubspec.yaml` and follow the [Setup guide](#s
 
 ```yaml
 dependencies:
-  flutter_web_auth_2: ^3.0.0
+  flutter_web_auth_2: ^4.0.0-alpha.0
 ```
 
 To authenticate against your own custom site:
@@ -81,6 +81,26 @@ final accessToken = jsonDecode(response.body)['access_token'] as String;
 ```
 
 **Note:** To use multiple scopes with Google, you need to encode them as a single string, separated by spaces. For example, `scope: 'email https://www.googleapis.com/auth/userinfo.profile'`. Here is [a list of all supported scopes](https://developers.google.com/identity/protocols/oauth2/scopes).
+
+## Upgrading to `4.x`
+
+Version `4.0.0` introduced a new approach for Linux and Windows to authenticate users - using
+Webview APIs. Hence, you only need to change your code if you are targeting Linux or Windows.
+If you are fine with still using the old version, here is what you need to change:
+- Pass `useWebview: false` into the options of your call to `authenticate`, like so:
+    ```dart
+    final result = await FlutterWebAuth2.authenticate(
+      url: url,
+      callbackUrlScheme: 'foobar',
+      options: const FlutterWebAuth2Options(useWebview: false),
+    );
+    ```
+
+If you want to use the new approach (**default behaviour!**), you need to do a bit more:
+- Follow the "Getting started" guide of
+  [desktop_webview_window](https://pub.dev/packages/desktop_webview_window#getting-started)
+- Make sure that your users know about the new requirements, as described
+  [here](https://pub.dev/packages/desktop_webview_window)
 
 ## Upgrading to `3.x`
 
@@ -188,9 +208,11 @@ Additional parameters for the URL open call can be passed in the `authenticate` 
 
 ### Windows and Linux
 
-There is still a limitation that the callback URL scheme must start with `http://localhost:{port}`.
+When using `useWebview: false`, there is a limitation that the callback URL scheme must start with `http://localhost:{port}`.
 
-If you have any experience in removing this limitation, please let me know!
+When specifying `useWebview: true` (which is the default behaviour), you need to make sure to follow [desktop_webview_window's guide](https://pub.dev/packages/desktop_webview_window).
+Also be aware that your users might need to install a Webview API (which is preinstalled on Windows 11 and some Windows 10 and Linux installations).
+For details, see also desktop_webview_window's guide above.
 
 ## Troubleshooting
 
