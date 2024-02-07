@@ -96,6 +96,14 @@ class FlutterWebAuth2Options {
   /// MALICIOUS ATTACKERS!
   final bool silentAuth;
 
+  /// **Only has an effect on Linux and Windows!**
+  /// When set to `true`, use the new Webview implementation.
+  /// When set to `false`, the old approach using an internal server is being
+  /// used in order to fetch the HTTP result. When using the internal server,
+  /// please keep in mind that you cannot choose any callback URL scheme, as
+  /// described in https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/25
+  final bool useWebview;
+
   const FlutterWebAuth2Options({
     bool? preferEphemeral,
     this.debugOrigin,
@@ -104,11 +112,13 @@ class FlutterWebAuth2Options {
     int? timeout,
     String? landingPageHtml,
     bool? silentAuth,
+    bool? useWebview,
   })  : preferEphemeral = preferEphemeral ?? false,
         intentFlags = intentFlags ?? defaultIntentFlags,
         timeout = timeout ?? 5 * 60,
         landingPageHtml = landingPageHtml ?? _defaultLandingPage,
-        silentAuth = silentAuth ?? false;
+        silentAuth = silentAuth ?? false,
+        useWebview = useWebview ?? true;
 
   FlutterWebAuth2Options.fromJson(Map<String, dynamic> json)
       : this(
@@ -119,6 +129,7 @@ class FlutterWebAuth2Options {
           timeout: json['timeout'],
           landingPageHtml: json['landingPageHtml'],
           silentAuth: json['silentAuth'],
+          useWebview: json['useWebview'],
         );
 
   Map<String, dynamic> toJson() => {
@@ -129,5 +140,6 @@ class FlutterWebAuth2Options {
         'timeout': timeout,
         'landingPageHtml': landingPageHtml,
         'silentAuth': silentAuth,
+        'useWebview': useWebview,
       };
 }

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io' show HttpServer, Platform;
+import 'dart:io' show HttpServer;
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
@@ -99,17 +99,11 @@ class MyAppState extends State<MyApp> {
 
       req.response.headers.add('Content-Type', 'text/html');
 
-      // Windows needs some callback URL on localhost
       req.response.write(
-        (Platform.isLinux)
-            ? html.replaceFirst(
-                'CALLBACK_URL_HERE',
-                'http://localhost:43824/success?code=1337',
-              )
-            : html.replaceFirst(
-                'CALLBACK_URL_HERE',
-                'foobar://success?code=1337',
-              ),
+        html.replaceFirst(
+          'CALLBACK_URL_HERE',
+          'foobar://success?code=1337',
+        ),
       );
 
       await req.response.close();
@@ -126,14 +120,10 @@ class MyAppState extends State<MyApp> {
     // the socket server...
     final url = kIsWeb ? '${Uri.base}auth.html' : 'http://127.0.0.1:43823/';
 
-    // Windows needs some callback URL on localhost
-    final callbackUrlScheme =
-        !kIsWeb && (Platform.isLinux) ? 'http://localhost:43824' : 'foobar';
-
     try {
       final result = await FlutterWebAuth2.authenticate(
         url: url,
-        callbackUrlScheme: callbackUrlScheme,
+        callbackUrlScheme: 'foobar',
         options: const FlutterWebAuth2Options(
           timeout: 5, // example: 5 seconds timeout
         ),
