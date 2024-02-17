@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 
-const html = '''
+const _html = '''
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,10 +82,10 @@ class MyAppState extends State<MyApp> {
   String _status = '';
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
     if (!kIsWeb) {
-      startServer();
+      await startServer();
     }
   }
 
@@ -100,7 +100,7 @@ class MyAppState extends State<MyApp> {
       req.response.headers.add('Content-Type', 'text/html');
 
       req.response.write(
-        html.replaceFirst(
+        _html.replaceFirst(
           'CALLBACK_URL_HERE',
           'foobar://success?code=1337',
         ),

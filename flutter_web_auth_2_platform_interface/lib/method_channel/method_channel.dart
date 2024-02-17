@@ -3,7 +3,7 @@ import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platfor
 
 /// Method channel implementation of the [FlutterWebAuth2Platform].
 class FlutterWebAuth2MethodChannel extends FlutterWebAuth2Platform {
-  static const MethodChannel channel = MethodChannel('flutter_web_auth_2');
+  static const MethodChannel _channel = MethodChannel('flutter_web_auth_2');
 
   @override
   Future<String> authenticate({
@@ -11,7 +11,7 @@ class FlutterWebAuth2MethodChannel extends FlutterWebAuth2Platform {
     required String callbackUrlScheme,
     required Map<String, dynamic> options,
   }) async =>
-      await channel.invokeMethod<String>('authenticate', <String, dynamic>{
+      await _channel.invokeMethod<String>('authenticate', <String, dynamic>{
         'url': url,
         'callbackUrlScheme': callbackUrlScheme,
         'options': options,
@@ -20,5 +20,5 @@ class FlutterWebAuth2MethodChannel extends FlutterWebAuth2Platform {
 
   @override
   Future clearAllDanglingCalls() async =>
-      channel.invokeMethod('cleanUpDanglingCalls');
+      _channel.invokeMethod('cleanUpDanglingCalls');
 }

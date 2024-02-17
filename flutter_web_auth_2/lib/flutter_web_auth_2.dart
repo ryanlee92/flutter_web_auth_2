@@ -12,18 +12,19 @@ export 'src/unsupported.dart'
     if (dart.library.html) 'src/web.dart';
 
 class _OnAppLifecycleResumeObserver extends WidgetsBindingObserver {
-  final Function onResumed;
-
   _OnAppLifecycleResumeObserver(this.onResumed);
 
+  final Future<void> Function() onResumed;
+
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
-      onResumed();
+      await onResumed();
     }
   }
 }
 
+/// Provides all the functions you - as a user - should access
 class FlutterWebAuth2 {
   static final RegExp _schemeRegExp = RegExp(r'^[a-z][a-z\d+.-]*$');
 
@@ -80,7 +81,7 @@ class FlutterWebAuth2 {
     );
   }
 
-  /// The plugin has to store the Result callbacks in order to pass
+  /// The plugin may need to store the resulting callbacks in order to pass
   /// the result back to the caller of `authenticate`. But if that result never
   /// comes the callback will dangle around forever. This can be called to
   /// terminate all `authenticate` calls with an error.

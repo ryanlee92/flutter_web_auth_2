@@ -13,11 +13,6 @@ class FlutterWebAuth2ServerPlugin extends FlutterWebAuth2Platform {
   HttpServer? _server;
   Timer? _authTimeout;
 
-  /// Registers the internal server implementation.
-  static void registerWith() {
-    FlutterWebAuth2Platform.instance = FlutterWebAuth2ServerPlugin();
-  }
-
   @override
   Future<String> authenticate({
     required String url,

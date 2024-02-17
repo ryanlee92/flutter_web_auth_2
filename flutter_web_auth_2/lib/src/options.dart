@@ -44,7 +44,38 @@ const _defaultLandingPage = '''
 </html>
 ''';
 
+/// Provides configuration options for calls to `authenticate`.
 class FlutterWebAuth2Options {
+  /// Construct an instance and specify the wanted options.
+  const FlutterWebAuth2Options({
+    bool? preferEphemeral,
+    this.debugOrigin,
+    int? intentFlags,
+    this.windowName,
+    int? timeout,
+    String? landingPageHtml,
+    bool? silentAuth,
+    bool? useWebview,
+  })  : preferEphemeral = preferEphemeral ?? false,
+        intentFlags = intentFlags ?? defaultIntentFlags,
+        timeout = timeout ?? 5 * 60,
+        landingPageHtml = landingPageHtml ?? _defaultLandingPage,
+        silentAuth = silentAuth ?? false,
+        useWebview = useWebview ?? true;
+
+  /// Construct an instance from JSON format.
+  FlutterWebAuth2Options.fromJson(Map<String, dynamic> json)
+      : this(
+          preferEphemeral: json['preferEphemeral'],
+          debugOrigin: json['debugOrigin'],
+          intentFlags: json['intentFlags'],
+          windowName: json['windowName'],
+          timeout: json['timeout'],
+          landingPageHtml: json['landingPageHtml'],
+          silentAuth: json['silentAuth'],
+          useWebview: json['useWebview'],
+        );
+
   /// **Only has an effect on iOS and MacOS!**
   /// If this is `true`, an ephemeral web browser session
   /// will be used where possible (`prefersEphemeralWebBrowserSession`).
@@ -104,34 +135,7 @@ class FlutterWebAuth2Options {
   /// described in https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/25
   final bool useWebview;
 
-  const FlutterWebAuth2Options({
-    bool? preferEphemeral,
-    this.debugOrigin,
-    int? intentFlags,
-    this.windowName,
-    int? timeout,
-    String? landingPageHtml,
-    bool? silentAuth,
-    bool? useWebview,
-  })  : preferEphemeral = preferEphemeral ?? false,
-        intentFlags = intentFlags ?? defaultIntentFlags,
-        timeout = timeout ?? 5 * 60,
-        landingPageHtml = landingPageHtml ?? _defaultLandingPage,
-        silentAuth = silentAuth ?? false,
-        useWebview = useWebview ?? true;
-
-  FlutterWebAuth2Options.fromJson(Map<String, dynamic> json)
-      : this(
-          preferEphemeral: json['preferEphemeral'],
-          debugOrigin: json['debugOrigin'],
-          intentFlags: json['intentFlags'],
-          windowName: json['windowName'],
-          timeout: json['timeout'],
-          landingPageHtml: json['landingPageHtml'],
-          silentAuth: json['silentAuth'],
-          useWebview: json['useWebview'],
-        );
-
+  /// Convert this instance to JSON format.
   Map<String, dynamic> toJson() => {
         'preferEphemeral': preferEphemeral,
         'debugOrigin': debugOrigin,

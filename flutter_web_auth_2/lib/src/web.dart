@@ -8,7 +8,10 @@ import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platfor
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Implements the plugin interface using iframes (for silent authentication)
+/// and through an event listener system (for usual authentication).
 class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
+  /// Registers the web implementation.
   static void registerWith(Registrar registrar) {
     final channel = MethodChannel(
       'flutter_web_auth_2',
@@ -16,11 +19,11 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
       registrar,
     );
     final instance = FlutterWebAuth2WebPlugin();
-    channel.setMethodCallHandler(instance.handleMethodCall);
+    channel.setMethodCallHandler(instance._handleMethodCall);
     FlutterWebAuth2Platform.instance = instance;
   }
 
-  Future<dynamic> handleMethodCall(MethodCall call) async {
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case 'authenticate':
         final url = call.arguments['url'].toString();

@@ -8,13 +8,8 @@ import 'package:path_provider/path_provider.dart';
 /// Implements the plugin interface using the Webview interface (currently used
 /// by Windows and Linux).
 class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
-  bool authenticated = false;
-  Webview? webview;
-
-  /// Registers the Webview implementation.
-  static void registerWith() {
-    FlutterWebAuth2Platform.instance = FlutterWebAuth2WebViewPlugin();
-  }
+  bool _authenticated = false;
+  Webview? _webview;
 
   @override
   Future<String> authenticate({
@@ -26,12 +21,12 @@ class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
       // Microsoft's WebView2 must be installed for this to work
       throw StateError('Webview is not available');
     }
-    //Reset
-    authenticated = false;
-    webview?.close();
+    // Reset
+    _authenticated = false;
+    _webview?.close();
 
     final c = Completer<String>();
-    webview = await WebviewWindow.create(
+    _webview = await WebviewWindow.create(
       configuration: CreateConfiguration(
         windowHeight: 720,
         windowWidth: 1280,
@@ -40,28 +35,28 @@ class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
         userDataFolderWindows: (await getTemporaryDirectory()).path,
       ),
     );
-    webview!.addOnUrlRequestCallback((url) {
+    _webview!.addOnUrlRequestCallback((url) {
       final uri = Uri.parse(url);
       if (uri.scheme == callbackUrlScheme) {
-        authenticated = true;
-        webview?.close();
+        _authenticated = true;
+        _webview?.close();
         /**
          * Not setting the webview to null will cause a crash if the
          * application tries to open another webview
          */
-        webview = null;
+        _webview = null;
         c.complete(url);
       }
     });
     unawaited(
-      webview!.onClose.whenComplete(
+      _webview!.onClose.whenComplete(
         () {
           /**
            * Not setting the webview to null will cause a crash if the
            * application tries to open another webview
            */
-          webview = null;
-          if (!authenticated) {
+          _webview = null;
+          if (!_authenticated) {
             c.completeError(
               PlatformException(code: 'CANCELED', message: 'User canceled'),
             );
@@ -69,7 +64,7 @@ class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
         },
       ),
     );
-    webview!.launch(url);
+    _webview!.launch(url);
     return c.future;
   }
 }
