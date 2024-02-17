@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
+import 'dart:js_interop';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2/src/options.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:web/web.dart';
 
 /// Implements the plugin interface using iframes (for silent authentication)
 /// and through an event listener system (for usual authentication).
@@ -51,8 +52,7 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
 
     if (parsedOptions.silentAuth) {
       // Not in our hands - developers need to check sanity of URL themselves...
-      final authIframe = IFrameElement()
-        // ignore: unsafe_html
+      final authIframe = HTMLIFrameElement()
         ..src = url
         ..style.display = 'none';
 
@@ -65,7 +65,9 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
       messageSubscription = window.onMessage.listen((messageEvent) {
         if (messageEvent.origin ==
             (parsedOptions.debugOrigin ?? Uri.base.origin)) {
-          final authMessage = messageEvent.data['flutter-web-auth-2'];
+          final data = messageEvent.data.dartify();
+          final authMessage =
+              data != null && data is Map ? data['flutter-web-auth-2'] : null;
           if (authMessage is String) {
             authIframe.remove();
             completer.complete(authMessage);
@@ -98,7 +100,7 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
 
     // Remove the old record if it exists
     const storageKey = 'flutter-web-auth-2';
-    window.localStorage.remove(storageKey);
+    window.localStorage.removeItem(storageKey);
     Timer? lsTimer;
     StreamSubscription? messageSubscription;
     final completer = Completer<String>();
@@ -107,23 +109,12 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
       // If it exists, return it. If not, check the timeout.
       // If the timeout has passed, throw an exception.
       lsTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (window.localStorage.containsKey(storageKey)) {
-          final flutterWebAuthMessage = window.localStorage[storageKey];
-          if (flutterWebAuthMessage is String) {
-            completer.complete(flutterWebAuthMessage);
-            window.localStorage.remove(storageKey);
-            messageSubscription?.cancel();
-            timer.cancel();
-          } else {
-            messageSubscription?.cancel();
-            timer.cancel();
-            completer.completeError(
-              PlatformException(
-                code: 'error',
-                message: 'Callback value is not a string',
-              ),
-            );
-          }
+        final flutterWebAuthMessage = window.localStorage.getItem(storageKey);
+        if (flutterWebAuthMessage != null) {
+          completer.complete(flutterWebAuthMessage);
+          window.localStorage.removeItem(storageKey);
+          messageSubscription?.cancel();
+          timer.cancel();
         } else if (timer.tick >= parsedOptions.timeout) {
           messageSubscription?.cancel();
           timer.cancel();
@@ -141,8 +132,9 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
         (messageEvent) {
           if (messageEvent.origin ==
               (parsedOptions.debugOrigin ?? Uri.base.origin)) {
+            final data = messageEvent.data.dartify();
             final flutterWebAuthMessage =
-                messageEvent.data['flutter-web-auth-2'];
+                data != null && data is Map ? data['flutter-web-auth-2'] : null;
             if (flutterWebAuthMessage is String) {
               lsTimer?.cancel();
               messageSubscription?.cancel();

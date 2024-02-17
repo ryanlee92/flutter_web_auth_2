@@ -9,7 +9,7 @@ import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platfor
 export 'src/options.dart';
 export 'src/unsupported.dart'
     if (dart.library.io) 'src/linows.dart'
-    if (dart.library.html) 'src/web.dart';
+    if (dart.library.js_interop) 'src/web.dart';
 
 class _OnAppLifecycleResumeObserver extends WidgetsBindingObserver {
   _OnAppLifecycleResumeObserver(this.onResumed);
