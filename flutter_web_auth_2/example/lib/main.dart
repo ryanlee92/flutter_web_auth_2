@@ -82,10 +82,10 @@ class MyAppState extends State<MyApp> {
   String _status = '';
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
     if (!kIsWeb) {
-      await startServer();
+      startServer();
     }
   }
 
