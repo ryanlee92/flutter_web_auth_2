@@ -1,3 +1,7 @@
+## 4.0.0-alpha.1
+
+- 🌹 Fix lint for Flutter 3.19.x
+
 ## 4.0.0-alpha.0
 
 - 🌹 Update to new major version in conjunction with main package
