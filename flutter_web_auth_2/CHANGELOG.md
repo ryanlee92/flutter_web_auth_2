@@ -1,3 +1,7 @@
+## 4.0.0-alpha.2
+
+- 🌹 Migrate to `web` package
+
 ## 4.0.0-alpha.1
 
 - 🌹 Fix lint for Flutter 3.19.x
