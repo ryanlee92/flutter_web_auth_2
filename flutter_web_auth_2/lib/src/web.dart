@@ -51,8 +51,7 @@ class FlutterWebAuth2WebPlugin extends FlutterWebAuth2Platform {
     final parsedOptions = FlutterWebAuth2Options.fromJson(options);
 
     if (parsedOptions.silentAuth) {
-      // Not in our hands - developers need to check sanity of URL themselves...
-      final authIframe = HTMLIFrameElement()
+      final authIframe = (document.createElement('iframe') as HTMLIFrameElement)
         ..src = url
         ..style.display = 'none';
 
