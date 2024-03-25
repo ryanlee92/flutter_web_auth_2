@@ -1,3 +1,8 @@
+## 4.0.0-alpha.3
+
+- 🐛 Fix `iframe` approach
+- 🌹 Update `melos` to `5.1.0` to have cleaner CI commands
+
 ## 4.0.0-alpha.2
 
 - 🌹 Migrate to `web` package
