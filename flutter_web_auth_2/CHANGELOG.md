@@ -1,3 +1,8 @@
+## 4.0.0-alpha.4
+
+- 🐛 Fix recursion errors in Flutter `3.22.0`
+- 🌹 Update dependencies (`melos` and `flutter_lints`)
+
 ## 4.0.0-alpha.3
 
 - 🐛 Fix `iframe` approach
