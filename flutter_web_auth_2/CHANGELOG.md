@@ -1,3 +1,11 @@
+## 4.0.0-alpha.5
+
+- 💥 Remove Android embedding v1 support (in accordance with Flutter `3.22.0`)
+- 💥 Increase Android min SDK to `21` (in accordance with Flutter `3.22.0`)
+- 💥 Increase Android JVM version to `11` (in accordance with Flutter `3.22.0`)
+- 🌹 Update AndroidX browser to `1.8.0`
+- 🌹 Migrate Android and Web examples to newest standards
+
 ## 4.0.0-alpha.4
 
 - 🐛 Fix recursion errors in Flutter `3.22.0`
