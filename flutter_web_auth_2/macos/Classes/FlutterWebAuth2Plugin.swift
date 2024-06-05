@@ -40,7 +40,14 @@ public class FlutterWebAuth2Plugin: NSObject, FlutterPlugin, ASWebAuthentication
                 result(url.absoluteString)
             }
 
-            let session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler)
+            var _session: ASWebAuthenticationSession? = nil
+            if #available(macOS 14.4, *) {
+                _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler)
+            } else {
+                _session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler)
+            }
+            let session = _session!
+
             if let preferEphemeral = options["preferEphemeral"] as? Bool {
                 session.prefersEphemeralWebBrowserSession = preferEphemeral
             }

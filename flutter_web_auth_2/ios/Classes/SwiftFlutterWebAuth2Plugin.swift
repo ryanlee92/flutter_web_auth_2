@@ -62,7 +62,13 @@ public class SwiftFlutterWebAuth2Plugin: NSObject, FlutterPlugin {
             }
 
             if #available(iOS 12, *) {
-                let session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler!)
+                var _session: ASWebAuthenticationSession? = nil
+                if #available(iOS 17.4, *) {
+                    _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler!)
+                } else {
+                    _session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler!)
+                }
+                let session = _session!
 
                 if #available(iOS 13, *) {
                     var rootViewController: UIViewController? = nil
