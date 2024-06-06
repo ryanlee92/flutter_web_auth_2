@@ -56,6 +56,7 @@ class FlutterWebAuth2Options {
     String? landingPageHtml,
     bool? silentAuth,
     bool? useWebview,
+    this.customTabsPackageOrder,
   })  : preferEphemeral = preferEphemeral ?? false,
         intentFlags = intentFlags ?? defaultIntentFlags,
         timeout = timeout ?? 5 * 60,
@@ -74,6 +75,7 @@ class FlutterWebAuth2Options {
           landingPageHtml: json['landingPageHtml'],
           silentAuth: json['silentAuth'],
           useWebview: json['useWebview'],
+          customTabsPackageOrder: json['customTabsPackageOrder'],
         );
 
   /// **Only has an effect on iOS and MacOS!**
@@ -135,6 +137,13 @@ class FlutterWebAuth2Options {
   /// described in https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/25
   final bool useWebview;
 
+  /// **Only has an effect on Android!**
+  /// Sets the Android browser priority for opening custom tabs.
+  /// Needs to be a list of packages providing a custom tabs
+  /// service. If a browser is not installed, the next on the list
+  /// is tested etc.
+  final List<String>? customTabsPackageOrder;
+
   /// Convert this instance to JSON format.
   Map<String, dynamic> toJson() => {
         'preferEphemeral': preferEphemeral,
@@ -145,5 +154,6 @@ class FlutterWebAuth2Options {
         'landingPageHtml': landingPageHtml,
         'silentAuth': silentAuth,
         'useWebview': useWebview,
+        'customTabsPackageOrder': customTabsPackageOrder,
       };
 }
