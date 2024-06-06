@@ -141,8 +141,7 @@ class MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
           appBar: AppBar(
             title: const Text('Web Auth 2 example'),
