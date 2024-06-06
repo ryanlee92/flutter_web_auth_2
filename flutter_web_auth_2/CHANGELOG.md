@@ -1,3 +1,8 @@
+## 4.0.0-alpha.6
+
+- 🌹 Allow custom browser priority and rework Android code (Thanks to [@kecson](https://github.com/kecson) in [#111](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/111))
+- 🌹 Enable partial `ASWebAuthenticationSession.Callback` support (related to [#104](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/104))
+
 ## 4.0.0-alpha.5
 
 - 💥 Remove Android embedding v1 support (in accordance with Flutter `3.22.0`)
