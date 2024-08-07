@@ -1,3 +1,8 @@
+## 4.0.0-alpha.7
+
+- 🎉 Enable `ASWebAuthenticationSession.Callback.https` support to fix Universal Links on iOS (Thanks to [@GabrielDamasceno](https://github.com/GabrielDamasceno) in [#117](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/117), related to [#65](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/65) and [#104](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/104))
+- 🌹 Update `web` to `1.x`
+
 ## 4.0.0-alpha.6
 
 - 🌹 Allow custom browser priority and rework Android code (Thanks to [@kecson](https://github.com/kecson) in [#111](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/111))
