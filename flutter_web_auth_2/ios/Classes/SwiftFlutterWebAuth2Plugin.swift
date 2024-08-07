@@ -64,7 +64,21 @@ public class SwiftFlutterWebAuth2Plugin: NSObject, FlutterPlugin {
             if #available(iOS 12, *) {
                 var _session: ASWebAuthenticationSession? = nil
                 if #available(iOS 17.4, *) {
-                    _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler!)
+                    if (callbackURLScheme == "https") {
+                        guard let host = options["httpsHost"] as? String else {
+                            result(FlutterError.invalidHttpsHostError)
+                            return 
+                        }
+
+                        guard let path = options["httpsPath"] as? String else {
+                            result(FlutterError.invalidHttpsPathError)
+                            return 
+                        }
+
+                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.https(host: host, path: path), completionHandler: completionHandler!)
+                    } else {
+                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler!)
+                    }
                 } else {
                     _session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler!)
                 }
@@ -150,5 +164,13 @@ extension FlutterViewController: ASWebAuthenticationPresentationContextProviding
 fileprivate extension FlutterError {
     static var acquireRootViewControllerFailed: FlutterError {
         return FlutterError(code: "ACQUIRE_ROOT_VIEW_CONTROLLER_FAILED", message: "Failed to acquire root view controller", details: nil)
+    }
+
+    static var invalidHttpsHostError: FlutterError {
+        return FlutterError(code: "INVALID_HTTPS_HOST_ERROR", message: "Failed to retrieve host for https scheme", details: nil)
+    }
+
+    static var invalidHttpsPathError: FlutterError {
+        return FlutterError(code: "INVALID_HTTPS_PATH_ERROR", message: "Failed to retrieve path for https scheme", details: nil)
     }
 }

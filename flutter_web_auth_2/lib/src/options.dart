@@ -56,6 +56,8 @@ class FlutterWebAuth2Options {
     String? landingPageHtml,
     bool? silentAuth,
     bool? useWebview,
+    this.httpsHost,
+    this.httpsPath,
     this.customTabsPackageOrder,
   })  : preferEphemeral = preferEphemeral ?? false,
         intentFlags = intentFlags ?? defaultIntentFlags,
@@ -75,6 +77,8 @@ class FlutterWebAuth2Options {
           landingPageHtml: json['landingPageHtml'],
           silentAuth: json['silentAuth'],
           useWebview: json['useWebview'],
+          httpsHost: json['httpsHost'],
+          httpsPath: json['httpsPath'],
           customTabsPackageOrder: json['customTabsPackageOrder'],
         );
 
@@ -137,6 +141,20 @@ class FlutterWebAuth2Options {
   /// described in https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/25
   final bool useWebview;
 
+  /// **Only has an effect on iOS and MacOS!**
+  /// String specifying the **host** of the URL that the page will redirect to
+  /// upon successful authentication (callback URL).
+  /// When `callbackUrlScheme` is `https`, this **must** be specified on
+  /// Apple devices running iOS >= 17.4 or macOS >= 14.4.
+  final String? httpsHost;
+
+  /// **Only has an effect on iOS and MacOS!**
+  /// String specifying the **path** of the URL that the page will redirect to
+  /// upon successful authentication (callback URL).
+  /// When `callbackUrlScheme` is `https`, this **must** be specified on
+  /// Apple devices running iOS >= 17.4 or macOS >= 14.4.
+  final String? httpsPath;
+
   /// **Only has an effect on Android!**
   /// Sets the Android browser priority for opening custom tabs.
   /// Needs to be a list of packages providing a custom tabs
@@ -155,5 +173,7 @@ class FlutterWebAuth2Options {
         'silentAuth': silentAuth,
         'useWebview': useWebview,
         'customTabsPackageOrder': customTabsPackageOrder,
+        'httpsHost': httpsHost,
+        'httpsPath': httpsPath,
       };
 }
