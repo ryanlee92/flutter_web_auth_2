@@ -85,6 +85,7 @@ class FlutterWebAuth2Options {
   /// **Only has an effect on iOS and MacOS!**
   /// If this is `true`, an ephemeral web browser session
   /// will be used where possible (`prefersEphemeralWebBrowserSession`).
+  /// For Android devices, see [intentFlags].
   final bool preferEphemeral;
 
   /// **Only has an effect on Web!**
@@ -101,6 +102,7 @@ class FlutterWebAuth2Options {
   /// [android_intent_plus](https://pub.dev/packages/android_intent_plus).
   /// Use [ephemeralIntentFlags] if you want similar behaviour to
   /// [preferEphemeral] on Android.
+  /// For Apple devices, see [preferEphemeral].
   final int intentFlags;
 
   /// **Only has an effect on Web!**
