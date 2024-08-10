@@ -1,6 +1,6 @@
 ## 4.0.0-alpha.8
 
-- 🌹 Allow also `web` versions `0.5.x` again (Thanks to [@Rexios80](https://github.com/Rexios80) in [#118](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/180))
+- 🌹 Allow also `web` versions `0.5.x` again (Thanks to [@Rexios80](https://github.com/Rexios80) in [#118](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/118))
 - 🌹 Improve documentation
 
 ## 4.0.0-alpha.7
