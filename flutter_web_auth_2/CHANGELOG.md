@@ -1,3 +1,8 @@
+## 4.0.0-alpha.8
+
+- 🌹 Allow also `web` versions `0.5.x` again (Thanks to [@Rexios80](https://github.com/Rexios80) in [#118](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/180))
+- 🌹 Improve documentation
+
 ## 4.0.0-alpha.7
 
 - 🎉 Enable `ASWebAuthenticationSession.Callback.https` support to fix Universal Links on iOS (Thanks to [@GabrielDamasceno](https://github.com/GabrielDamasceno) in [#117](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/117), related to [#65](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/65) and [#104](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/104))
