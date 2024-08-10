@@ -24,7 +24,7 @@ class _OnAppLifecycleResumeObserver extends WidgetsBindingObserver {
   }
 }
 
-/// Provides all the functions you - as a user - should access
+/// Provides all the functions you - as a user - should access.
 class FlutterWebAuth2 {
   static final RegExp _schemeRegExp = RegExp(r'^[a-z][a-z\d+.-]*$');
 

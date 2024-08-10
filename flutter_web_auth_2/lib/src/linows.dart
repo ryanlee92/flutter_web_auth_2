@@ -5,7 +5,7 @@ import 'package:flutter_web_auth_2/src/server.dart';
 import 'package:flutter_web_auth_2/src/webview.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
 
-/// Implements the plugin interface for Linux and Windows (Linows)
+/// Implements the plugin interface for Linux and Windows (Linows).
 class FlutterWebAuth2LinowsPlugin extends FlutterWebAuth2Platform {
   final FlutterWebAuth2Platform _webviewImpl = FlutterWebAuth2WebViewPlugin();
   final FlutterWebAuth2Platform _serverImpl = FlutterWebAuth2ServerPlugin();
