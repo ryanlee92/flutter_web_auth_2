@@ -302,6 +302,7 @@ When you use this package for the first time, you may experience some problems. 
   
 - If you want to have a callback URL with `http` or `https` scheme, you also need to specify a host etc.
   See [c:geo](https://github.com/cgeo/cgeo/blob/d7ab67629ac4798adaae194e563afe7df134fcd0/main/AndroidManifest.xml#L164) as an example for this.
+- There is also a known problem with task affinities and launch modes (see [#113](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/113)). In order to ensure that `flutter_web_auth_2` works correctly, set `android:launchMode="singleTop"` and remove any `android:taskAffinity` entries. This configuration is guaranteed to work.
 
 ### Troubleshooting OAuth redirects
 
