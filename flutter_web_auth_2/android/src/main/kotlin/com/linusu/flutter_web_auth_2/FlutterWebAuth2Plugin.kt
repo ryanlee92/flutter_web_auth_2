@@ -81,27 +81,27 @@ class FlutterWebAuth2Plugin(
      * 4. Installed Browser
      */
     private fun findTargetBrowserPackageName(options: Map<String, Any>): String? {
-        val chromePackage = "com.android.chrome"
-
         @Suppress("UNCHECKED_CAST")
         val customTabsPackageOrder = (options["customTabsPackageOrder"] as Iterable<String>?) ?: emptyList()
-        //check target browser
+        // Check target browser
         var targetPackage = customTabsPackageOrder.firstOrNull { isSupportCustomTabs(it) }
         if (targetPackage != null) {
             return targetPackage
         }
 
-        //check default browser
+        // Check default browser
         val defaultBrowserSupported = CustomTabsClient.getPackageName(context!!, emptyList<String>()) != null
         if (defaultBrowserSupported) {
             return null;
         }
-        //check installed browser
+        // Check installed browser
         val allBrowsers = getInstalledBrowsers()
         targetPackage = allBrowsers.firstOrNull { isSupportCustomTabs(it) }
 
-        if (targetPackage == null) {
-            targetPackage = chromePackage
+        // Safely fall back on Chrome just in case
+        val chromePackage = "com.android.chrome"
+        if (targetPackage == null && isSupportCustomTabs(chromePackage)) {
+            return chromePackage
         }
         return targetPackage
     }
@@ -127,7 +127,7 @@ class FlutterWebAuth2Plugin(
                 return@compareBy -1
             }
 
-            //FireFox default is not enable ,must enable in the browser settings.
+            // Firefox default is not enabled, must enable in the browser settings.
             if (setOf("org.mozilla.firefox").contains(it)) {
                 return@compareBy 1
             }
