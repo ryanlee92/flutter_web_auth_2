@@ -1,3 +1,7 @@
+## 4.0.0
+
+*No changes - just the official version release!*
+
 ## 4.0.0-alpha.9
 
 - 🐛 Fix Chrome always taking precedence on Android (Thanks to [@obrand69](https://github.com/obrand69) in [#125](https://github.com/ThexXTURBOXx/flutter_web_auth_2/pull/125))

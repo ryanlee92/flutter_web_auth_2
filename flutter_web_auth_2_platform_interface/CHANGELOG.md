@@ -1,3 +1,7 @@
+## 4.0.0
+
+*No changes - just the official version release!*
+
 ## 4.0.0-alpha.1
 
 - 🌹 Fix lint for Flutter 3.19.x
