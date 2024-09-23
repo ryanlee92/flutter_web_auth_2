@@ -64,21 +64,23 @@ public class SwiftFlutterWebAuth2Plugin: NSObject, FlutterPlugin {
             if #available(iOS 12, *) {
                 var _session: ASWebAuthenticationSession? = nil
                 if #available(iOS 17.4, *) {
-                    if (callbackURLScheme == "https") {
-                        guard let host = options["httpsHost"] as? String else {
-                            result(FlutterError.invalidHttpsHostError)
-                            return 
-                        }
-
-                        guard let path = options["httpsPath"] as? String else {
-                            result(FlutterError.invalidHttpsPathError)
-                            return 
-                        }
-
-                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.https(host: host, path: path), completionHandler: completionHandler!)
-                    } else {
-                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler!)
-                    }
+//                    if (callbackURLScheme == "https") {
+//                        guard let host = options["httpsHost"] as? String else {
+//                            result(FlutterError.invalidHttpsHostError)
+//                            return 
+//                        }
+//
+//                        guard let path = options["httpsPath"] as? String else {
+//                            result(FlutterError.invalidHttpsPathError)
+//                            return 
+//                        }
+//
+//                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.https(host: host, path: path), completionHandler: completionHandler!)
+//                    } else {
+//                        _session = ASWebAuthenticationSession(url: url, callback: ASWebAuthenticationSession.Callback.customScheme(callbackURLScheme), completionHandler: completionHandler!)
+//                    }
+                    
+                    _session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler!)
                 } else {
                     _session = ASWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, completionHandler: completionHandler!)
                 }
