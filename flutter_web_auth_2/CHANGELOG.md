@@ -1,3 +1,7 @@
+## 4.0.1
+
+- 🌹 Update `flutter_lints` to `5.x` - should not really change anything!
+
 ## 4.0.0
 
 *No changes - just the official version release!*
