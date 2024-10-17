@@ -82,9 +82,17 @@ final accessToken = jsonDecode(response.body)['access_token'] as String;
 
 **Note:** To use multiple scopes with Google, you need to encode them as a single string, separated by spaces. For example, `scope: 'email https://www.googleapis.com/auth/userinfo.profile'`. Here is [a list of all supported scopes](https://developers.google.com/identity/protocols/oauth2/scopes).
 
-## Upgrading to `4.x`
+## Migration
 
-Version `4.0.0` introduced a new approach for Linux and Windows to authenticate users - using
+### Upgrading to `4.x`
+
+Generally, the following constraints have been added in version `4.0.0`:
+- Android embedding v1 support has been removed (it was deprecated already long ago)
+- Android min SDK and JVM version has been increased to 21 and 11, respectively (in accordance with
+  Flutter `3.22.0`)
+- Migrated away from deprecated iOS and macOS functions (now iOS 17.4 and macOS 14.4 are required!)
+
+Version `4.0.0` also introduced a new approach for Linux and Windows to authenticate users - using
 Webview APIs. Hence, you only need to change your code if you are targeting Linux or Windows.
 If you are fine with still using the old version, here is what you need to change:
 - Pass `useWebview: false` into the options of your call to `authenticate`, like so:
@@ -102,7 +110,7 @@ If you want to use the new approach (**default behaviour!**), you need to do a b
 - Make sure that your users know about the new requirements, as described
   [here](https://pub.dev/packages/desktop_webview_window)
 
-## Upgrading to `3.x`
+### Upgrading to `3.x`
 
 Version `3.0.0` featured a huge refactor which made it possible to maintain even more configuration
 possibilities. Even platform-specific ones! If you want to upgrade, you need to do the following:
@@ -118,7 +126,7 @@ possibilities. Even platform-specific ones! If you want to upgrade, you need to 
     exactly the same. However, if you want the old behaviour using `preferEphemeral` on Android, use
     the `ephemeralIntentFlags` constant as value for `intentFlags`.
 
-## Upgrading from `flutter_web_auth`
+### Upgrading from `flutter_web_auth`
 
 If you used `flutter_web_auth` correctly (and without extra hackage) before, it should be sufficient to replace the following strings *everywhere* (yes, also in `AndroidManifest.xml` for example):
 - `FlutterWebAuth` -> `FlutterWebAuth2`
