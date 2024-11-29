@@ -1,3 +1,8 @@
+## 4.1.0
+
+- 🌹 Add host and path comparator to webview implementation (related to [#146](https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/146))
+- 🐛 Hopefully fix WASM compatibility
+
 ## 4.0.2
 
 - 🌹 Improve README (additions to migration guide and Google scopes)
