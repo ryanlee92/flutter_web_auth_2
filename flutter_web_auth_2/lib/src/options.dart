@@ -82,7 +82,7 @@ class FlutterWebAuth2Options {
           customTabsPackageOrder: json['customTabsPackageOrder'],
         );
 
-  /// **Only has an effect on iOS and MacOS!**
+  /// **Only has an effect on iOS and macOS!**
   /// If this is `true`, an ephemeral web browser session
   /// will be used where possible (`prefersEphemeralWebBrowserSession`).
   /// For Android devices, see [intentFlags].
@@ -111,7 +111,7 @@ class FlutterWebAuth2Options {
   /// possible parameter values.
   final String? windowName;
 
-  /// **Only has an effect on Linux, Web and Windows!**
+  /// **Only has an effect on Linux, Web, and Windows!**
   /// Can be used to specify a timeout in seconds when the authentication shall
   /// be deemed unsuccessful. An error will be thrown in order to abort the
   /// authentication process.
@@ -143,18 +143,22 @@ class FlutterWebAuth2Options {
   /// described in https://github.com/ThexXTURBOXx/flutter_web_auth_2/issues/25
   final bool useWebview;
 
-  /// **Only has an effect on iOS and MacOS!**
+  /// **Only has an effect on iOS, Linux, macOS, and Windows!**
   /// String specifying the **host** of the URL that the page will redirect to
   /// upon successful authentication (callback URL).
   /// When `callbackUrlScheme` is `https`, this **must** be specified on
   /// Apple devices running iOS >= 17.4 or macOS >= 14.4.
+  /// On Linux and Windows, this is used when `useWebview == true` in order to
+  /// compare with the host of the callback URL (no matter which scheme!).
   final String? httpsHost;
 
-  /// **Only has an effect on iOS and MacOS!**
+  /// **Only has an effect on iOS, Linux, macOS, and Windows!**
   /// String specifying the **path** of the URL that the page will redirect to
   /// upon successful authentication (callback URL).
   /// When `callbackUrlScheme` is `https`, this **must** be specified on
   /// Apple devices running iOS >= 17.4 or macOS >= 14.4.
+  /// On Linux and Windows, this is used when `useWebview == true` in order to
+  /// compare with the path of the callback URL (no matter which scheme!).
   final String? httpsPath;
 
   /// **Only has an effect on Android!**

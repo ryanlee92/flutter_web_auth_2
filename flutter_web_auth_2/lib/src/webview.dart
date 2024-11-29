@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -21,6 +22,9 @@ class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
       // Microsoft's WebView2 must be installed for this to work
       throw StateError('Webview is not available');
     }
+
+    final parsedOptions = FlutterWebAuth2Options.fromJson(options);
+
     // Reset
     _authenticated = false;
     _webview?.close();
@@ -37,16 +41,21 @@ class FlutterWebAuth2WebViewPlugin extends FlutterWebAuth2Platform {
     );
     _webview!.addOnUrlRequestCallback((url) {
       final uri = Uri.parse(url);
-      if (uri.scheme == callbackUrlScheme) {
-        _authenticated = true;
-        _webview?.close();
-        /**
-         * Not setting the webview to null will cause a crash if the
-         * application tries to open another webview
-         */
-        _webview = null;
-        c.complete(url);
+      if (uri.scheme != callbackUrlScheme ||
+          (parsedOptions.httpsHost != null &&
+              uri.host != parsedOptions.httpsHost) ||
+          (parsedOptions.httpsPath != null &&
+              uri.path != parsedOptions.httpsPath)) {
+        return;
       }
+      _authenticated = true;
+      _webview?.close();
+      /**
+       * Not setting the webview to null will cause a crash if the
+       * application tries to open another webview
+       */
+      _webview = null;
+      c.complete(url);
     });
     unawaited(
       _webview!.onClose.whenComplete(
