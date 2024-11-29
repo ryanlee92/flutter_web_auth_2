@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_web_auth_2/src/options.dart';
+import 'package:flutter_web_auth_2/src/platform/platform_is.dart';
 import 'package:flutter_web_auth_2_platform_interface/flutter_web_auth_2_platform_interface.dart';
 
 export 'src/options.dart';
@@ -35,7 +35,7 @@ class FlutterWebAuth2 {
       _OnAppLifecycleResumeObserver(_cleanUpDanglingCalls);
 
   static void _assertCallbackScheme(String callbackUrlScheme) {
-    if ((kIsWeb || (!Platform.isWindows && !Platform.isLinux)) &&
+    if ((PlatformIs.web || (!PlatformIs.windows && !PlatformIs.linux)) &&
         !_schemeRegExp.hasMatch(callbackUrlScheme)) {
       throw ArgumentError.value(
         callbackUrlScheme,
