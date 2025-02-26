@@ -27,9 +27,9 @@ class FlutterWebAuth2ServerPlugin extends FlutterWebAuth2Platform {
     if (callbackUri.scheme != 'http' ||
         (callbackUri.host != 'localhost' && callbackUri.host != '127.0.0.1') ||
         !callbackUri.hasPort) {
-      throw ArgumentError(
-        'Callback url scheme must start with http://localhost:{port}',
-      );
+      // throw ArgumentError(
+      //   'Callback url scheme must start with http://localhost:{port}',
+      // );
     }
 
     await _server?.close(force: true);
